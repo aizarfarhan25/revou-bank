@@ -2,14 +2,16 @@ import uuid
 
 from flask import Flask, render_template, jsonify, request
 
-from auth.login import login_required
+# from auth.login import login_required
 from models.user import dummy_users
 from router.auth import auth_router
 from router.user import user_router
+from router.account import account_router
 
 app = Flask(__name__)
 app.register_blueprint(user_router)
 app.register_blueprint(auth_router)
+app.register_blueprint(account_router)
 
 
 @app.before_request
@@ -30,13 +32,13 @@ def page_not_found(e):
     return render_template("404.html"), 404
 
 
-@app.route("/account", methods=["GET"])
-@login_required
-def account():
-    print("ROUTE /account")
-    user = getattr(request, "user", None)
-    print(user)
-    return jsonify({"data": {}, "success": True}), 200
+# @app.route("/account", methods=["GET"])
+# @login_required
+# def account():
+#     print("ROUTE /account")
+#     user = getattr(request, "user", None)
+#     print(user)
+#     return jsonify({"data": {}, "success": True}), 200
 
 
 @app.route("/")
