@@ -52,7 +52,7 @@ def get_all_users():
     return formatted_responses
 
 
-def find_user_by_id(_id: int):
+def find_user_by_id(_id: str):
     users = all_user_repository()["users"]
     if user_data := users.get(_id):
         return serialize_user(user_data)
@@ -81,3 +81,6 @@ def update_user(user_id, data_masuk):
         return jsonify({"data": {"message": "User not found"}, "success": False}), 404
     user_data = update_user_repository(user_id, data_masuk)
     return jsonify({"data": serialize_user(user_data), "success": True}), 200
+
+
+

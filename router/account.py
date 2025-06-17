@@ -1,61 +1,117 @@
-from flask import Blueprint, request
-from auth.login import login_required
-from views.account import (
-    create_user_account,
-    get_account_detail,
-    get_user_accounts,
-    delete_user_account
-)
-from views.transaction import (
-    process_deposit,
-    process_withdrawal,
-    get_transaction_history
-)
+from flask import Blueprint, jsonify, request
+from repo.account import create_new_account, get_account_by_id, get_user_accounts, get_all_accounts, delete_account
+from pydantic import BaseModel, ValidationError
+
+
+class AccountRequest(BaseModel):
+    user_id: str
+    account_type: str
+    # account_number: str
+    balance: float = 0.00
 
 account_router = Blueprint("account_router", __name__, url_prefix="/api/v1/accounts")
 
+# ini untuk create account
 @account_router.route("", methods=["POST"])
-@login_required
 def create_account():
-    user = getattr(request, "user")
-    return create_user_account(user["id"])
-
+    data = request.json
+    try:
+        account_data = AccountRequest.model_validate(data)
+        created_account = create_new_account(
+            account_data.user_id,
+            account_data.account_type,
+            account_data.balance
+        )
+        return jsonify({
+            "success": True,
+            "data": created_account.to_dict()
+        }), 201
+    except ValidationError as e:
+        return jsonify({
+            "success": False,
+            "data": e.errors(include_url=False, include_context=False, include_input=False)
+        }), 400
+    except Exception as e:
+        return jsonify({
+            "success": False,
+            "message": str(e)
+        }), 500
+       
+# ini untuk get all account        
 @account_router.route("", methods=["GET"])
-@login_required
-def list_accounts():
-    user = getattr(request, "user")
-    return get_user_accounts(user["id"])
+def get_accounts():
+    try:
+        accounts = get_all_accounts()
+        return jsonify({
+            "success": True,
+            "data": [account.to_dict() for account in accounts]
+        }), 200
+    except Exception as e:
+        return jsonify({
+            "success": False,
+            "message": str(e)
+        }), 500
+ 
+# ini untk get account by account_id        
+@account_router.route("/<account_id>", methods=["GET"])
+def get_account(account_id):
+    try:
+        account = get_account_by_id(account_id)
+        if not account:
+            return jsonify({
+                "success": False,
+                "message": "Account not found"
+            }), 404
+        return jsonify({
+            "success": True,
+            "data": account.to_dict()
+        }), 200
+    except Exception as e:
+        return jsonify({
+            "success": False,
+            "message": str(e)
+        }), 500
+        
+        
+# ini untuk get account by user_id       
+@account_router.route("/user/<user_id>", methods=["GET"])
+def list_accounts(user_id):
+    try:
+        accounts = get_user_accounts(user_id)
+        return jsonify({
+            "success": True,
+            "data": [account.to_dict() for account in accounts]
+        }), 200
+    except Exception as e:
+        return jsonify({
+            "success": False,
+            "message": str(e)
+        }), 500
 
-@account_router.route("/<int:account_id>", methods=["GET", "DELETE"])
-@login_required
-def handle_specific_account(account_id):
-    user = getattr(request, "user")
-    if request.method == "GET":
-        return get_account_detail(account_id, user["id"])
-    return delete_user_account(account_id, user["id"])
-
-@account_router.route("/<int:account_id>/deposit", methods=["POST"])
-@login_required
-def deposit(account_id):
-    user = getattr(request, "user")
-    data = request.json
-    amount = data.get("amount")
-    description = data.get("description", "Deposit")
-    return process_deposit(account_id, user["id"], amount, description)
-
-@account_router.route("/<int:account_id>/withdraw", methods=["POST"])
-@login_required
-def withdraw(account_id):
-    user = getattr(request, "user")
-    data = request.json
-    amount = data.get("amount")
-    description = data.get("description", "Withdrawal")
-    return process_withdrawal(account_id, user["id"], amount, description)
-
-@account_router.route("/<int:account_id>/transactions", methods=["GET"])
-@login_required
-def transactions(account_id):
-    user = getattr(request, "user")
-    start_date = request.args.get("start_date")
-    end_date = request.args.get("end_date")
-    return get_transaction_history(account_id, user["id"], start_date, end_date)
+# ini unrtu delete account        
+@account_router.route("/<account_id>", methods=["DELETE"])
+def delete_account_by_id(account_id):
+    try:
+        result = delete_account(account_id)
+        
+        if result is None:
+            return jsonify({
+                "success": False,
+                "message": "Account not found"
+            }), 404
+            
+        return jsonify({
+            "success": True,
+            "message": "Account deleted successfully"
+        }), 200
+        
+    except ValueError as e:
+        return jsonify({
+            "success": False,
+            "message": str(e)
+        }), 400
+    except Exception as e:
+        return jsonify({
+            "success": False,
+            "message": str(e)
+        }), 500

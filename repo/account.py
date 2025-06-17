@@ -1,52 +1,60 @@
-from datetime import datetime
-import copy
-from models.account import dummy_accounts
+from utils.database import db
+from models.account import Account
+from decimal import Decimal
 
-def create_account(user_id: int) -> dict:
-    account_ids = list(dummy_accounts["accounts"].keys())
-    new_id = max(account_ids) + 1 if account_ids else 1
-    
-    account_data = {
-        "account_number": f"ACC{new_id:03d}",
-        "user_id": user_id,
-        "balance": 0,
-        "type": "savings",
-        "created_at": datetime.now().isoformat(),
-        "status": "active"
-    }
-    
-    dummy_accounts["accounts"][new_id] = account_data
-    return account_data
 
-def get_specific_account(account_id: int, user_id: int) -> dict:
-    if account_id in dummy_accounts["accounts"]:
-        account = dummy_accounts["accounts"][account_id]
-        if account["user_id"] == user_id:
-            account_copy = copy.deepcopy(account)
-            account_copy["id"] = account_id
-            return account_copy
-    return None
+def create_new_account(user_id: str, account_type: str, balance: float = 0.00):
+    try:
+        account = Account(
+            user_id=user_id,
+            account_type=account_type,
+            balance=balance
+        )
+        db.session.add(account)
+        db.session.commit()
+        return account
+    except Exception as e:
+        db.session.rollback()
+        raise e
 
-def list_user_accounts(user_id: int) -> list:
-    user_accounts = []
-    for acc_id, account in dummy_accounts["accounts"].items():
-        if account["user_id"] == user_id:
-            acc_copy = copy.deepcopy(account)
-            acc_copy["id"] = acc_id
-            user_accounts.append(acc_copy)
-    return user_accounts
+# ini untuk get all account    
+def get_all_accounts():
+    try:
+        accounts = Account.query.all()
+        return accounts
+    except Exception as e:
+        raise e
 
-def update_balance(account_id: int, amount: float) -> bool:
-    if account_id in dummy_accounts["accounts"]:
-        dummy_accounts["accounts"][account_id]["balance"] += amount
+# ini untuk get account by user_id      
+def get_user_accounts(user_id: str):
+    try:
+        accounts = Account.query.filter_by(user_id=user_id).all()
+        return accounts
+    except Exception as e:
+        raise e
+
+# ini untuk get account by ID    
+def get_account_by_id(account_id: str):
+    try:
+        account = Account.query.filter_by(account_id=account_id).first()
+        return account
+    except Exception as e:
+        raise e
+
+# ini untuk delete account    
+def delete_account(account_id: str):
+    try:
+        account = Account.query.filter_by(account_id=account_id).first()
+        if not account:
+            return None
+            
+        # cek saldo
+        if account.balance > 0:
+            raise ValueError("Cannot delete account with positive balance")
+            
+        db.session.delete(account)
+        db.session.commit()
         return True
-    return False
-
-def delete_account(account_id: int) -> bool:
-    if account_id in dummy_accounts["accounts"]:
-        account = dummy_accounts["accounts"][account_id]
-        if account["balance"] > 0:
-            return False
-        dummy_accounts["accounts"].pop(account_id)
-        return True
-    return False
+    except Exception as e:
+        db.session.rollback()
+        raise e

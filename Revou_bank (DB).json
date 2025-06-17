@@ -1,0 +1,339 @@
+{
+  "v": 6,
+  "name": "Revou_bank (DB)",
+  "folders": [],
+  "requests": [
+    {
+      "v": "11",
+      "name": "create users (db)",
+      "method": "POST",
+      "endpoint": "http://127.0.0.1:5000/api/v1/users",
+      "params": [],
+      "headers": [],
+      "preRequestScript": "",
+      "testScript": "",
+      "auth": {
+        "authType": "inherit",
+        "authActive": true
+      },
+      "body": {
+        "contentType": "application/json",
+        "body": "    {\n        \"user_email\": \"maman@gmail.com\",\n        \"username\": \"mamankuy\",\n        \"user_password\": \"pass123\",\n        \"first_name\": \"Maman\",\n        \"last_name\": \"Gogoy\"\n    }"
+      },
+      "requestVariables": [],
+      "responses": {}
+    },
+    {
+      "v": "11",
+      "name": "login (db)",
+      "method": "POST",
+      "endpoint": "http://localhost:5000/api/v1/auth/login",
+      "params": [],
+      "headers": [],
+      "preRequestScript": "",
+      "testScript": "",
+      "auth": {
+        "authType": "inherit",
+        "authActive": true
+      },
+      "body": {
+        "contentType": "application/json",
+        "body": "{\n    \"email\": \"aizar@gmail.com\",\n    \"password\": \"pass123\"\n}"
+      },
+      "requestVariables": [],
+      "responses": {}
+    },
+    {
+      "v": "11",
+      "name": "get users (db)",
+      "method": "GET",
+      "endpoint": "http://127.0.0.1:5000/api/v1/users",
+      "params": [],
+      "headers": [],
+      "preRequestScript": "",
+      "testScript": "",
+      "auth": {
+        "authType": "inherit",
+        "authActive": true
+      },
+      "body": {
+        "contentType": null,
+        "body": null
+      },
+      "requestVariables": [],
+      "responses": {}
+    },
+    {
+      "v": "11",
+      "name": "delete user by ID (db)",
+      "method": "DELETE",
+      "endpoint": "http://127.0.0.1:5000/api/v1/users/a1a64",
+      "params": [],
+      "headers": [],
+      "preRequestScript": "",
+      "testScript": "",
+      "auth": {
+        "authType": "inherit",
+        "authActive": true
+      },
+      "body": {
+        "contentType": null,
+        "body": null
+      },
+      "requestVariables": [],
+      "responses": {}
+    },
+    {
+      "v": "11",
+      "name": "update user by ID (db)",
+      "method": "PUT",
+      "endpoint": "http://127.0.0.1:5000/api/v1/users/a2f71",
+      "params": [],
+      "headers": [],
+      "preRequestScript": "",
+      "testScript": "",
+      "auth": {
+        "authType": "inherit",
+        "authActive": true
+      },
+      "body": {
+        "contentType": "application/json",
+        "body": "{\n    \"user_password\": \"pass123\"\n}"
+      },
+      "requestVariables": [],
+      "responses": {}
+    },
+    {
+      "v": "11",
+      "name": "create account (db)",
+      "method": "POST",
+      "endpoint": "http://127.0.0.1:5000/api/v1/accounts",
+      "params": [],
+      "headers": [],
+      "preRequestScript": "",
+      "testScript": "",
+      "auth": {
+        "authType": "inherit",
+        "authActive": true
+      },
+      "body": {
+        "contentType": "application/json",
+        "body": "{\n    \"user_id\": \"US002\",\n    \"account_type\": \"savings\",\n    \"balance\": 9871662.00\n}"
+      },
+      "requestVariables": [],
+      "responses": {}
+    },
+    {
+      "v": "11",
+      "name": "get all account (db)",
+      "method": "GET",
+      "endpoint": "http://127.0.0.1:5000/api/v1/accounts",
+      "params": [],
+      "headers": [],
+      "preRequestScript": "",
+      "testScript": "",
+      "auth": {
+        "authType": "inherit",
+        "authActive": true
+      },
+      "body": {
+        "contentType": null,
+        "body": null
+      },
+      "requestVariables": [],
+      "responses": {}
+    },
+    {
+      "v": "11",
+      "name": "get account by specific user ID (db)",
+      "method": "GET",
+      "endpoint": "http://127.0.0.1:5000/api/v1/accounts/user/5dba4",
+      "params": [],
+      "headers": [],
+      "preRequestScript": "",
+      "testScript": "",
+      "auth": {
+        "authType": "inherit",
+        "authActive": true
+      },
+      "body": {
+        "contentType": null,
+        "body": null
+      },
+      "requestVariables": [],
+      "responses": {}
+    },
+    {
+      "v": "11",
+      "name": "get account by specific account ID (db)",
+      "method": "GET",
+      "endpoint": "http://127.0.0.1:5000/api/v1/accounts/d91bc",
+      "params": [],
+      "headers": [],
+      "preRequestScript": "",
+      "testScript": "",
+      "auth": {
+        "authType": "inherit",
+        "authActive": true
+      },
+      "body": {
+        "contentType": null,
+        "body": null
+      },
+      "requestVariables": [],
+      "responses": {}
+    },
+    {
+      "v": "11",
+      "name": "delete account by ID (db)",
+      "method": "DELETE",
+      "endpoint": "http://127.0.0.1:5000/api/v1/accounts/77047",
+      "params": [],
+      "headers": [],
+      "preRequestScript": "",
+      "testScript": "",
+      "auth": {
+        "authType": "inherit",
+        "authActive": true
+      },
+      "body": {
+        "contentType": null,
+        "body": null
+      },
+      "requestVariables": [],
+      "responses": {}
+    },
+    {
+      "v": "11",
+      "name": "deposit (db)",
+      "method": "POST",
+      "endpoint": "http://127.0.0.1:5000/api/v1/transactions/deposit",
+      "params": [],
+      "headers": [],
+      "preRequestScript": "",
+      "testScript": "",
+      "auth": {
+        "authType": "bearer",
+        "token": "YWl6YXJAZ21haWwuY29tOlVTMDAy",
+        "authActive": true
+      },
+      "body": {
+        "contentType": "application/json",
+        "body": "{\n  \"account_number\": \"4431806\",\n  \"amount\": 10000.00,\n  \"description\": \"Test deposit by user Aizar\"\n}"
+      },
+      "requestVariables": [],
+      "responses": {}
+    },
+    {
+      "v": "11",
+      "name": "withdraw (db)",
+      "method": "POST",
+      "endpoint": "http://127.0.0.1:5000/api/v1/transactions/withdraw",
+      "params": [],
+      "headers": [],
+      "preRequestScript": "",
+      "testScript": "",
+      "auth": {
+        "authType": "bearer",
+        "token": "eWFua3RvbmtAZ21haWwuY29tOjAxZWNh",
+        "authActive": true
+      },
+      "body": {
+        "contentType": "application/json",
+        "body": "{\n    \"account_number\": \"ACC004\",\n    \"amount\": 7700.00,\n    \"description\": \"Test tarik tunai bang\"\n}"
+      },
+      "requestVariables": [],
+      "responses": {}
+    },
+    {
+      "v": "11",
+      "name": "transfer (db)",
+      "method": "POST",
+      "endpoint": "http://127.0.0.1:5000/api/v1/transactions/transfer",
+      "params": [],
+      "headers": [],
+      "preRequestScript": "",
+      "testScript": "",
+      "auth": {
+        "authType": "bearer",
+        "token": "YWl6YXJAZ21haWwuY29tOlVTMDAx",
+        "authActive": true
+      },
+      "body": {
+        "contentType": "application/json",
+        "body": "{\n    \"from_account_number\": \"4431806\",\n    \"to_account_number\": \"6802441\",\n    \"amount\": 25000.00,\n    \"description\": \"test transfer\"\n}"
+      },
+      "requestVariables": [],
+      "responses": {}
+    },
+    {
+      "v": "11",
+      "name": "get all transactions (db)",
+      "method": "GET",
+      "endpoint": "http://127.0.0.1:5000/api/v1/transactions",
+      "params": [],
+      "headers": [],
+      "preRequestScript": "",
+      "testScript": "",
+      "auth": {
+        "authType": "bearer",
+        "token": "YWl6YXJAZ21haWwuY29tOlVTMDAy",
+        "authActive": true
+      },
+      "body": {
+        "contentType": "application/json",
+        "body": "{\n    \"from_account_number\": \"ACC001\",\n    \"to_account_number\": \"ACC002\",\n    \"amount\": 250.00,\n    \"description\": \"test transfer dari user Aizar dan dari account AC001 ke account AC002\"\n}"
+      },
+      "requestVariables": [],
+      "responses": {}
+    },
+    {
+      "v": "11",
+      "name": "get transactions by specific user (db)",
+      "method": "GET",
+      "endpoint": "http://127.0.0.1:5000/api/v1/transactions/user/133a1",
+      "params": [],
+      "headers": [],
+      "preRequestScript": "",
+      "testScript": "",
+      "auth": {
+        "authType": "bearer",
+        "token": "YWl6YXJAZ21haWwuY29tOjEzM2Ex",
+        "authActive": true
+      },
+      "body": {
+        "contentType": "application/json",
+        "body": "{\n    \"from_account_number\": \"ACC001\",\n    \"to_account_number\": \"ACC002\",\n    \"amount\": 250.00,\n    \"description\": \"test transfer dari user Aizar dan dari account AC001 ke account AC002\"\n}"
+      },
+      "requestVariables": [],
+      "responses": {}
+    },
+    {
+      "v": "11",
+      "name": "get transactions by specific account (db)",
+      "method": "GET",
+      "endpoint": "http://127.0.0.1:5000/api/v1/transactions/account/b9310",
+      "params": [],
+      "headers": [],
+      "preRequestScript": "",
+      "testScript": "",
+      "auth": {
+        "authType": "bearer",
+        "token": "YWl6YXJAZ21haWwuY29tOjEzM2Ex",
+        "authActive": true
+      },
+      "body": {
+        "contentType": "application/json",
+        "body": "{\n    \"from_account_number\": \"ACC001\",\n    \"to_account_number\": \"ACC002\",\n    \"amount\": 250.00,\n    \"description\": \"test transfer dari user Aizar dan dari account AC001 ke account AC002\"\n}"
+      },
+      "requestVariables": [],
+      "responses": {}
+    }
+  ],
+  "auth": {
+    "authActive": true,
+    "authType": "none"
+  },
+  "headers": [],
+  "_ref_id": "coll_m8r7t29j_2bd28c51-ea9b-4df4-a913-25bb0a75ab5d"
+}

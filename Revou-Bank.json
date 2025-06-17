@@ -1,0 +1,280 @@
+{
+  "v": 6,
+  "name": "Revou-Bank",
+  "folders": [],
+  "requests": [
+    {
+      "v": "11",
+      "name": "create users",
+      "method": "POST",
+      "endpoint": "http://127.0.0.1:8000/api/v1/users",
+      "params": [],
+      "headers": [],
+      "preRequestScript": "",
+      "testScript": "",
+      "auth": {
+        "authType": "inherit",
+        "authActive": true
+      },
+      "body": {
+        "contentType": "application/json",
+        "body": "{\n    \"email\": \"martin@gmail.com\",\n    \"password\": \"1234\",\n    \"first_name\": \"Martin\",\n    \"last_name\": \"Kurniawan\"\n}"
+      },
+      "requestVariables": [],
+      "responses": {}
+    },
+    {
+      "v": "11",
+      "name": "login",
+      "method": "POST",
+      "endpoint": "http://127.0.0.1:8000/api/v1/auth/login",
+      "params": [],
+      "headers": [],
+      "preRequestScript": "",
+      "testScript": "",
+      "auth": {
+        "authType": "inherit",
+        "authActive": true
+      },
+      "body": {
+        "contentType": "application/json",
+        "body": "{\n    \"email\": \"coco@gmail.com\",\n    \"password\": \"pass1234\"\n}"
+      },
+      "requestVariables": [],
+      "responses": {}
+    },
+    {
+      "v": "11",
+      "name": "get users",
+      "method": "GET",
+      "endpoint": "http://127.0.0.1:8000/api/v1/users",
+      "params": [],
+      "headers": [],
+      "preRequestScript": "",
+      "testScript": "",
+      "auth": {
+        "authType": "inherit",
+        "authActive": true
+      },
+      "body": {
+        "contentType": "application/json",
+        "body": "{\n    \"email\": \"coco@gmail.com\",\n    \"password\": \"pass1234\"\n}"
+      },
+      "requestVariables": [],
+      "responses": {}
+    },
+    {
+      "v": "11",
+      "name": "get users by ID",
+      "method": "GET",
+      "endpoint": "http://127.0.0.1:8000/api/v1/users/3",
+      "params": [],
+      "headers": [],
+      "preRequestScript": "",
+      "testScript": "",
+      "auth": {
+        "authType": "inherit",
+        "authActive": true
+      },
+      "body": {
+        "contentType": "application/json",
+        "body": "{\n    \"email\": \"coco@gmail.com\",\n    \"password\": \"pass1234\"\n}"
+      },
+      "requestVariables": [],
+      "responses": {}
+    },
+    {
+      "v": "11",
+      "name": "delete users by ID",
+      "method": "DELETE",
+      "endpoint": "http://127.0.0.1:8000/api/v1/users/3",
+      "params": [],
+      "headers": [],
+      "preRequestScript": "",
+      "testScript": "",
+      "auth": {
+        "authType": "inherit",
+        "authActive": true
+      },
+      "body": {
+        "contentType": "application/json",
+        "body": "{\n    \"email\": \"coco@gmail.com\",\n    \"password\": \"pass1234\"\n}"
+      },
+      "requestVariables": [],
+      "responses": {}
+    },
+    {
+      "v": "11",
+      "name": "update users by ID",
+      "method": "PUT",
+      "endpoint": "http://127.0.0.1:8000/api/v1/users/3",
+      "params": [],
+      "headers": [],
+      "preRequestScript": "",
+      "testScript": "",
+      "auth": {
+        "authType": "inherit",
+        "authActive": true
+      },
+      "body": {
+        "contentType": "application/json",
+        "body": "{\n    \"last_name\": \"test\",\n    \"email\": \"natadcoco@gmail.com\"\n}"
+      },
+      "requestVariables": [],
+      "responses": {}
+    },
+    {
+      "v": "11",
+      "name": "create new account",
+      "method": "POST",
+      "endpoint": "http://127.0.0.1:8000/api/v1/accounts",
+      "params": [],
+      "headers": [],
+      "preRequestScript": "",
+      "testScript": "",
+      "auth": {
+        "authType": "bearer",
+        "token": "Y29jb0BnbWFpbC5jb206MQ==",
+        "authActive": true
+      },
+      "body": {
+        "contentType": "application/json",
+        "body": "{\n    \"email\" : \"coco@gmail.com\",\n    \"password\" : \"pass1234\"\n}"
+      },
+      "requestVariables": [],
+      "responses": {}
+    },
+    {
+      "v": "11",
+      "name": "ge t account",
+      "method": "GET",
+      "endpoint": "http://127.0.0.1:8000/api/v1/accounts",
+      "params": [],
+      "headers": [],
+      "preRequestScript": "",
+      "testScript": "",
+      "auth": {
+        "authType": "bearer",
+        "token": "Y29jb0BnbWFpbC5jb206MQ==",
+        "authActive": true
+      },
+      "body": {
+        "contentType": "application/json",
+        "body": "{\n    \"email\" : \"coco@gmail.com\",\n    \"password\" : \"pass1234\"\n}"
+      },
+      "requestVariables": [],
+      "responses": {}
+    },
+    {
+      "v": "11",
+      "name": "delete account by ID",
+      "method": "DELETE",
+      "endpoint": "http://127.0.0.1:8000/api/v1/accounts/1",
+      "params": [],
+      "headers": [],
+      "preRequestScript": "",
+      "testScript": "",
+      "auth": {
+        "authType": "bearer",
+        "token": "Y29jb0BnbWFpbC5jb206MQ==",
+        "authActive": true
+      },
+      "body": {
+        "contentType": "application/json",
+        "body": "{\n    \"email\" : \"coco@gmail.com\",\n    \"password\" : \"pass1234\"\n}"
+      },
+      "requestVariables": [],
+      "responses": {}
+    },
+    {
+      "v": "11",
+      "name": "deposit",
+      "method": "POST",
+      "endpoint": "http://127.0.0.1:8000/api/v1/transactions/deposit",
+      "params": [],
+      "headers": [],
+      "preRequestScript": "",
+      "testScript": "",
+      "auth": {
+        "authType": "bearer",
+        "token": "Y29jb0BnbWFpbC5jb206MQ==",
+        "authActive": true
+      },
+      "body": {
+        "contentType": "application/json",
+        "body": "{\n    \"email\" : \"coco@gmail.com\",\n    \"password\" : \"pass1234\"\n}"
+      },
+      "requestVariables": [],
+      "responses": {}
+    },
+    {
+      "v": "11",
+      "name": "withdraw",
+      "method": "POST",
+      "endpoint": "http://127.0.0.1:8000/api/v1/transactions/withdraw",
+      "params": [],
+      "headers": [],
+      "preRequestScript": "",
+      "testScript": "",
+      "auth": {
+        "authType": "bearer",
+        "token": "Y29jb0BnbWFpbC5jb206MQ==",
+        "authActive": true
+      },
+      "body": {
+        "contentType": "application/json",
+        "body": "  {\n    \"account_id\": 3,\n    \"amount\": 75000,\n    \"description\": \"tarik tunai\"\n  }"
+      },
+      "requestVariables": [],
+      "responses": {}
+    },
+    {
+      "v": "11",
+      "name": "transfer",
+      "method": "POST",
+      "endpoint": "http://127.0.0.1:8000/api/v1/transactions/transfer",
+      "params": [],
+      "headers": [],
+      "preRequestScript": "",
+      "testScript": "",
+      "auth": {
+        "authType": "bearer",
+        "token": "Y29jb0BnbWFpbC5jb206MQ==",
+        "authActive": true
+      },
+      "body": {
+        "contentType": "application/json",
+        "body": "  {\n    \"from_account_id\": 3,\n    \"to_account_id\": 1,\n    \"amount\": 500000,\n    \"description\": \"kirim duit buat beli cilok\"\n  }"
+      },
+      "requestVariables": [],
+      "responses": {}
+    },
+    {
+      "v": "11",
+      "name": "history transfer / mutasi",
+      "method": "GET",
+      "endpoint": "http://127.0.0.1:8000/api/v1/transactions/history/3",
+      "params": [],
+      "headers": [],
+      "preRequestScript": "",
+      "testScript": "",
+      "auth": {
+        "authType": "bearer",
+        "token": "Y29jb0BnbWFpbC5jb206MQ==",
+        "authActive": true
+      },
+      "body": {
+        "contentType": "application/json",
+        "body": "{\n    \"email\" : \"coco@gmail.com\",\n    \"password\" : \"pass1234\"\n}"
+      },
+      "requestVariables": [],
+      "responses": {}
+    }
+  ],
+  "auth": {
+    "authActive": true,
+    "authType": "none"
+  },
+  "headers": [],
+  "_ref_id": "coll_m89nfr9b_84520424-6587-413f-b58d-63cd3ae0fa2f"
+}

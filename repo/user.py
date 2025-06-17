@@ -1,34 +1,83 @@
-import copy
+from utils.database import db
+from models.user import User
 
-from models.user import dummy_users
-
-
-def all_user_repository() -> dict:
-    return copy.deepcopy(dummy_users)
-
-
-def create_user_repository(user_data: dict):
-    key_ids = list(dummy_users["users"].keys())
-    if key_ids:
-        new_key = max(key_ids) + 1
-    else:
-        new_key = 1
-    dummy_users["users"][new_key] = user_data
+# get user by email
+def find_user_by_email(email: str):
+    try:
+        user = User.query.filter_by(user_email=email).first()
+        return user
+    except Exception as e:
+        raise e
 
 
-def delete_user_repository(user_id):
-    dummy_users["users"].pop(user_id)
+
+# get all user
+def get_all_user ():
+    users = User.query.all()
+    datas = [user.obj_to_dict() for user in users]
+    return datas
 
 
-def update_user_repository(user_id, user_data):
-    dummy_users["users"][user_id] = {**dummy_users["users"][user_id], **user_data}
-    return copy.deepcopy(dummy_users["users"][user_id])
+# get user by ID
+def get_user_by_id_db(user_id: str):
+    try:
+        user = User.query.filter_by(user_id=user_id).first()
+        return user
+    except Exception as e:
+        raise e
+
+def create_new_user (user_email, username, user_password, first_name, last_name):
+    user_item = User(
+        email=user_email,
+        username=username,
+        password=user_password,
+        first_name=first_name,
+        last_name=last_name
+        # full_name=full_name
+    )
+    db.session.add(user_item)
+    db.session.commit()
+    return user_item
 
 
-def find_user_by_email(email) -> dict:
-    for user_id, user_data in dummy_users["users"].items():
-        if user_data["email"] == email:
-            user = copy.deepcopy(user_data)
-            user["id"] = user_id
-            return user
-    return None
+# update existing user
+def update_existing_user(user_id: str, user_data: dict):
+    try:
+        user = User.query.filter_by(user_id=user_id).first()
+        if not user:
+            return None
+        
+        if 'username' in user_data:
+            user.username = user_data['username']
+        if 'user_email' in user_data:
+            user.user_email = user_data['user_email']
+        if 'user_password' in user_data:
+            user.user_password = user_data['user_password']
+        if 'first_name' in user_data:
+            user.first_name = user_data['first_name']
+            user.full_name = f"{user.first_name} {user.last_name}"
+        if 'last_name' in user_data:
+            user.last_name = user_data['last_name']
+            user.full_name = f"{user.first_name} {user.last_name}"
+            
+        db.session.commit()
+        return user
+    except Exception as e:
+        db.session.rollback()
+        raise e
+
+
+# delete user    
+def delete_user(user_id: str):
+    try:
+        user = User.query.filter_by(user_id=user_id).first()
+        if not user:
+            return None
+        
+        db.session.delete(user)
+        db.session.commit()
+        return True
+    except Exception as e:
+        db.session.rollback()
+        raise e
+    
